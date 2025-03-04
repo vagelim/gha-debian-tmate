@@ -1,0 +1,17 @@
+name: 'Debian Tmate Debug Session'
+description: 'Starts an interactive tmate debugging session in a Debian-like environment'
+inputs:
+  timeout-minutes:
+    description: 'Maximum duration for the debug session in minutes'
+    required: false
+    default: '30'
+runs:
+  using: "composite"
+  steps:
+    - name: Start tmate session
+      shell: bash
+      run: ${{ github.action_path }}/scripts/start-tmate.sh
+    
+    - name: Wait for tmate to stop
+      shell: bash
+      run: ${{ github.action_path }}/scripts/wait-for-tmate-stop.sh
